@@ -56,14 +56,14 @@ class AuthenticatedSessionController extends Controller
         // check if the given user exists in db
         if(Auth::attempt(['email'=> $input['email'], 'password'=> $input['password']])){
             // check the user role
-            if (Auth::user()->type == 1) {
-                return redirect()->route('adminDashboardShow');
+            if(Auth::user()->type == 0){
+                return redirect()->route('dashboard');
+            }
+            elseif (Auth::user()->type == 1) {
+                return redirect("admin/dashboard");
             }
             elseif (Auth::user()->type == 2) {
                 return redirect()->route('superAdminDashboardShow');
-            }
-            elseif(Auth::user()->type == 0){
-                return redirect()->route('dashboard');
             }
         }
         else{

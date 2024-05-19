@@ -15,11 +15,12 @@ class AdminAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth()->user()->type == 1 || Auth()->user()->type == 2){ // admin = 1 superAdmin = 2
+        if(Auth()->user()->type == 1 || Auth()->user()->type == 2 && Auth()->user()->type != 0 ){ // admin = 1 superAdmin = 2
             return $next($request);
         }else{
             return redirect()->route('login')->with('error', 'You do not have permission to access this page !');
         }
         
     }
+
 }

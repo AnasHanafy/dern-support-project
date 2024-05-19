@@ -3,9 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\servicesController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
-use App\http\middleware\AdminAuth;
 
 
 /*
@@ -21,7 +19,7 @@ use App\http\middleware\AdminAuth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -41,12 +39,14 @@ Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController:
 /**Admin routes **/
 Route::middleware('adminAuth')->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('adminDashboardShow');
-});     
+});
 
 /**Super Admin routes **/
 Route::middleware('superAdminAuth')->prefix('superAdmin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'superAdminDashboard'])->name('superAdminDashboardShow');
 });
+Route::middleware('adminAuth')->group(function(){
+    
 //get products data
 Route::get('/admin/dashboard',[servicesController::class,'index']);
 
@@ -63,3 +63,6 @@ Route::put('/update-service/{id}',[servicesController::class,'store']);
 //delete product
 Route::delete('/form-delete/{id}',[servicesController::class,'delete']);
 
+
+    
+});
