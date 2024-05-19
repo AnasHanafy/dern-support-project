@@ -38,7 +38,8 @@ class servicesController extends Controller
     //update service data
     public function update($id)
     {
-        return view('updateService')->with('id', $id);
+        $services = Service::all();
+        return view('updateService',compact('services'))->with('id', $id);
     }
 
     public function store(request $request, $id)

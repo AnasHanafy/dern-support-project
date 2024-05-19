@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\servicesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -66,3 +67,6 @@ Route::delete('/form-delete/{id}',[servicesController::class,'delete']);
 
     
 });
+
+Route::get('/dashboard', [UserController::class, 'userDashboard'])->name('dashboard');
+Route::post('/apply/{id}', [UserController::class, 'applyForService'])->name('applyForService');
